@@ -1,0 +1,7 @@
+{
+  "databases": [{
+    "type": "mongo",
+    "name": "WebMetrics",
+    "description": "Mongo database containing the metrics aggregation."
+  }]
+}

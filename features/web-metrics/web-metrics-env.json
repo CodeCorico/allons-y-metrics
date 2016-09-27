@@ -1,0 +1,8 @@
+{
+  "env": [{
+    "type": "confirm",
+    "name": "WEB_METRICS",
+    "message": "Save the metrics to the database:",
+    "default": false
+  }]
+}

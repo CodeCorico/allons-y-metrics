@@ -1,0 +1,99 @@
+@import "web";
+
+@-webkit-keyframes web-metrics-legend-description-show { 0% { opacity: 0; .transform(translateX(-10rem)); } 100% { opacity: 1; .transform(translateX(0)); } }
+@-moz-keyframes web-metrics-legend-description-show { 0% { opacity: 0; .transform(translateX(-10rem)); } 100% { opacity: 1; .transform(translateX(0)); } }
+@-ms-keyframes web-metrics-legend-description-show { 0% { opacity: 0; .transform(translateX(-10rem)); } 100% { opacity: 1; .transform(translateX(0)); } }
+@-o-keyframes web-metrics-legend-description-show { 0% { opacity: 0; .transform(translateX(-10rem)); } 100% { opacity: 1; .transform(translateX(0)); } }
+@keyframes web-metrics-legend-description-show { 0% { opacity: 0; .transform(translateX(-10rem)); } 100% { opacity: 1; .transform(translateX(0)); } }
+
+.pl-section.web-metrics-buttons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
+  padding-left: 1.5rem;
+  background: #333;
+
+  div {
+    float: left;
+    cursor: pointer;
+    width: 5rem;
+    height: 5rem;
+    color: white;
+    text-align: center;
+    line-height: 5rem;
+    font-size: 2rem;
+    .transition(background 0.35s @easeOutQuart);
+
+    &.selected {
+      background: darken(@accentColor, 20%);
+    }
+  }
+}
+
+.web-metrics-legend {
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+
+  .pl-section.web-metrics-legend-series {
+    padding: 1rem 3rem 3rem 3rem;
+
+    h2 {
+      .noselect();
+      position: relative;
+      font-size: 1.6rem;
+      opacity: 0.3;
+      text-transform: uppercase;
+      padding: 2rem 0;
+      margin: 0;
+      font-weight: 400;
+      letter-spacing: normal;
+      text-align: center;
+    }
+
+    .web-metrics-legend-serie {
+      position: relative;
+      cursor: pointer;
+      margin-top: 0.5rem;
+
+      &:hover {
+        font-weight: 400;
+      }
+
+      &.off {
+        opacity: 0.5;
+        color: #ccc !important;
+
+        &:hover {
+          font-weight: 300;
+        }
+      }
+
+      .web-metrics-legend-serie-total {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+
+    .web-metrics-legend-description {
+      display: none;
+      font-size: 1.4rem;
+      color: #EAEAEA;
+      .animation(web-metrics-legend-description-show 0.35s);
+
+      &.show {
+        display: block;
+      }
+
+      &.off {
+        opacity: 0.5;
+      }
+    }
+  }
+}

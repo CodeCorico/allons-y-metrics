@@ -1,0 +1,49 @@
+<div class="pl-section web-metrics-buttons">
+  <div
+    class="button-selectall"
+    title="select all"
+    on-click="selectAll"
+  >
+    <i class="fa fa-check-square"></i>
+  </div>
+  <div
+    class="button-unselectall"
+    title="unselect all"
+    on-click="unselectAll"
+  >
+    <i class="fa fa-minus-square"></i>
+  </div>
+  <div
+    class="button-info {{showInfo ? 'selected' : ''}}"
+    title="Info"
+    on-click="toggleInfo"
+  >
+    <i class="fa fa-info"></i>
+  </div>
+</div>
+
+<div class="web-metrics-legend">
+  <rv-require name="pl-scrolls" src="/public/vendor/plumes/scrolls/pl-scrolls"></rv-require>
+
+  <div class="pl-scrolls">
+    <section class="pl-section web-metrics-legend-series">
+      {{#chart}}
+        {{#if namespaceTitle}}
+          <h2>{{_(namespaceTitle)}}</h2>
+        {{/if}}
+
+        <div
+          class="web-metrics-legend-serie {{activated ? 'on' : 'off'}}"
+          style="color: {{color}};"
+          on-click="toggleSerie"
+          on-mouseenter="serieMouseenter"
+          on-mouseleave="serieMouseleave"
+        >
+          <i class="fa fa-toggle-{{activated ? 'on' : 'off'}}"></i> {{{_(name)}}}
+          <span class="web-metrics-legend-serie-total">{{totals[key] || 0}}</span>
+        </div>
+        <p class="web-metrics-legend-description {{showInfo ? 'show' : ''}} {{activated ? 'on' : 'off'}}">{{_(description)}}</p>
+      {{/chart}}
+    </section>
+  </div>
+</div>
