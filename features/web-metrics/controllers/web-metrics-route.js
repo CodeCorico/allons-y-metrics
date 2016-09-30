@@ -31,11 +31,7 @@ module.exports = {
           $Page.leftButtonAdd('web-metrics-legend', {
             icon: 'fa fa-list-ul',
             group: 'group-web-metrics-legend',
-            ready: function(button) {
-              if ($Layout.get('screen') == 'screen-desktop') {
-                button.action(false);
-              }
-            },
+            autoOpen: 'main',
             beforeGroup: function(context, $group, userBehavior, callback) {
               context.require('web-metrics-legend').then(callback);
             }
