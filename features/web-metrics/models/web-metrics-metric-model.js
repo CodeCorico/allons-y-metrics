@@ -11,7 +11,16 @@ module.exports = function() {
             isPublic: true
           }
         },
+        METRICS_HOME_TILE = {
+          url: '/metrics',
+          cover: '/public/web-metrics/web-metrics-home.jpg',
+          large: true,
+          centered: {
+            title: 'METRICS'
+          }
+        },
 
+        extend = require('extend'),
         $WebMetricsService = DependencyInjection.injector.model.get('$WebMetricsService'),
         _transactions = [];
 
@@ -31,11 +40,16 @@ module.exports = function() {
         },
 
         init: function() {
-          var GroupModel = DependencyInjection.injector.model.get('GroupModel');
+          var GroupModel = DependencyInjection.injector.model.get('GroupModel'),
+              UserModel = DependencyInjection.injector.model.get('UserModel');
 
           GroupModel.registerPermissions(PERMISSIONS);
 
           $WebMetricsService.model(this);
+
+          UserModel.homeDefaultTile(extend(true, {
+            date: new Date()
+          }, METRICS_HOME_TILE), ['web-metrics-access']);
         },
 
         addLog: function(log) {
@@ -125,38 +139,42 @@ module.exports = function() {
               metric.dates[activeDate] = metric.dates[activeDate] || 0;
               metric.dates[activeDate] += log.metric.value || 1;
 
-              metric.save(function(err) {
-                if (_transactions.length) {
-                  _transactions.shift();
-                }
+              _this
+                .update({
+                  key: metric.key
+                }, metric)
+                .exec(function(err) {
+                  if (_transactions.length) {
+                    _transactions.shift();
+                  }
 
-                if (err) {
-                  $allonsy.logWarning('allons-y-web-metrics', 'metrics:metric-save:error', {
-                    error: err
-                  });
+                  if (err) {
+                    $allonsy.logWarning('allons-y-web-metrics', 'metrics:metric-save:error', {
+                      error: err
+                    });
+
+                    _this.transaction();
+
+                    return;
+                  }
+
+                  var result = {
+                    chart: [{
+                      date: activeDate
+                    }]
+                  };
+
+                  result.chart[0][metric.key] = {
+                    value: metric.dates[activeDate]
+                  };
+
+                  $SocketsService.emit(null, {
+                    'user.permissions': 'web-metrics-access',
+                    'route.url': URL_PATTERN
+                  }, null, 'read(web-metrics/chart)', result);
 
                   _this.transaction();
-
-                  return;
-                }
-
-                var result = {
-                  chart: [{
-                    date: activeDate
-                  }]
-                };
-
-                result.chart[0][metric.key] = {
-                  value: metric.dates[activeDate]
-                };
-
-                $SocketsService.emit(null, {
-                  'user.permissions': 'web-metrics-access',
-                  'route.url': URL_PATTERN
-                }, null, 'read(web-metrics/chart)', result);
-
-                _this.transaction();
-              });
+                });
             });
         },
 
