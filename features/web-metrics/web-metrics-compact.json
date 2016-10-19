@@ -1,5 +1,5 @@
 {
   "files": [
-    "public/web-metrics/web-metrics-index.js"
+    "./public/web-metrics/web-metrics-index.js"
   ]
 }
