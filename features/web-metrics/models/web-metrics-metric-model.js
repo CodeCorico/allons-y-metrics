@@ -7,13 +7,13 @@ module.exports = function() {
         PERMISSIONS = {
           'web-metrics-access': {
             title: 'Access to the Metrics app',
-            description: 'Access to the Metrics app',
+            description: 'Access to the Metrics app.',
             isPublic: true
           }
         },
         METRICS_HOME_TILE = {
           url: '/metrics',
-          cover: '/public/web-metrics/web-metrics-home.jpg',
+          cover: '/public/web-metrics/web-metrics-home.png',
           large: true,
           centered: {
             title: 'METRICS'
