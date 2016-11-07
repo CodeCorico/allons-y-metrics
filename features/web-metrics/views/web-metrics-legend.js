@@ -6,22 +6,39 @@
   function webMetricsLegendController(
     $WebMetricsService, $component, $data, $done
   ) {
-
     var WebMetricsLegend = $component({
-          data: $.extend(true, {
-            showInfo: false,
-            totals: {}
-          }, $data)
-        });
+      data: $.extend(true, {
+        showInfo: false,
+        totals: {}
+      }, $data)
+    });
 
     function _readChart(args) {
       if (args.error || !args.chart || !args.chart.length) {
         return;
       }
 
-      var lastNamespace = null;
+      var chart = $.extend(true, [], args.chart),
+          lastNamespace = null;
 
-      WebMetricsLegend.set('chart', args.chart
+      chart.sort(function(a, b) {
+        if (a.namespace < b.namespace) {
+          return -1;
+        }
+        if (a.namespace > b.namespace) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+
+        return 0;
+      });
+
+      WebMetricsLegend.set('chart', chart
         .map(function(serie) {
           serie = $.extend(true, {}, serie || null);
 
