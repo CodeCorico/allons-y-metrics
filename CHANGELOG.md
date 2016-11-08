@@ -1,3 +1,10 @@
+<a name="1.0.2"></a>
+# [1.0.2](https://github.com/CodeCorico/allons-y-web-metrics/compare/1.0.1...1.0.2) (2016-11-08)
+
+### Bug Fixes
+* **web-metrics service:** sort the metrics before sending them to the views [#4aef3fd](https://github.com/CodeCorico/allons-y-web-metrics/commit/4aef3fd)
+* **web-metrics metric model:** sort the data ASC to avoid the highcharts error 15 [#5f6cfa1](https://github.com/CodeCorico/allons-y-web-metrics/commit/5f6cfa1)
+
 <a name="1.0.1"></a>
 # [1.0.1](https://github.com/CodeCorico/allons-y-web-metrics/compare/1.0.0...1.0.1) (2016-11-07)
 
