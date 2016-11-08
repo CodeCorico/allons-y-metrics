@@ -197,6 +197,10 @@ module.exports = function() {
                   metrics[i].data.push([datesList[j], metrics[i].dates[datesList[j]] || 0]);
                 }
 
+                metrics[i].data.sort(function(a, b) {
+                  return a[0] > b[0] ? 1 : (a[0] < b[0] ? -1 : 0);
+                });
+
                 delete metrics[i].dates;
               }
 
