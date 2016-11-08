@@ -18,27 +18,9 @@
         return;
       }
 
-      var chart = $.extend(true, [], args.chart),
-          lastNamespace = null;
+      var lastNamespace = null;
 
-      chart.sort(function(a, b) {
-        if (a.namespace < b.namespace) {
-          return -1;
-        }
-        if (a.namespace > b.namespace) {
-          return 1;
-        }
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-
-        return 0;
-      });
-
-      WebMetricsLegend.set('chart', chart
+      WebMetricsLegend.set('chart', args.chart
         .map(function(serie) {
           serie = $.extend(true, {}, serie || null);
 

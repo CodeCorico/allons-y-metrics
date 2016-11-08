@@ -67,6 +67,23 @@ module.exports = function() {
           }
         }
         else {
+          args.chart.sort(function(a, b) {
+            if (a.namespace < b.namespace) {
+              return -1;
+            }
+            if (a.namespace > b.namespace) {
+              return 1;
+            }
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
+
+            return 0;
+          });
+
           args.chart.forEach(function(serie, i) {
             serie.color = LEGEND_COLORS[i % LEGEND_COLORS.length];
             serie.activated = _lastChart && _lastChart[i] && !_lastChart[i].activated ? false : true;
